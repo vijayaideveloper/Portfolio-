@@ -44,6 +44,35 @@
             z-index: -1;
         }
         
+        .header-social-icons {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            /* 16px */
+        }
+        
+        .header-social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            font-size: 20px;
+            color: var(--slate);
+            border: 2px solid transparent;
+            border-color: #00f6ff;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .header-social-icons a:hover {
+            color: var(--cyan);
+            border-color: var(--cyan);
+            background-color: rgba(0, 246, 255, 0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px rgba(0, 238, 255, 0.4);
+        }
+        
         .font-mono {
             font-family: 'Roboto Mono', monospace;
         }
@@ -180,25 +209,47 @@
 
     <header class="bg-slate-950/70 backdrop-blur-sm fixed top-0 left-0 right-0 z-50 shadow-md border-b border-slate-800">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#" class="text-2xl font-bold gradient-text font-mono">VJ</a>
-            <div class="hidden md:flex items-center space-x-6 font-mono">
-                <a href="#about" class="hover:text-[var(--cyan)] transition-colors">About</a>
-                <a href="#skills" class="hover:text-[var(--cyan)] transition-colors">Skills</a>
-                <a href="#projects" class="hover:text-[var(--cyan)] transition-colors">Projects</a>
-                <a href="#achievements" class="hover:text-[var(--cyan)] transition-colors">Achievements</a>
-                <a href="#contact" class="hover:text-[var(--cyan)] transition-colors">Contact</a>
+            <a href="#" class="text-2xl font-bold gradient-text font-mono justify-center">VJ</a>
+
+            <div class="hidden md:flex items-center space-x-8 grow justify-end">
+
+                <div class="flex items-center space-x-6 font-mono bg-slate-900/50 border border-slate-700 px-6 py-2 rounded-full">
+                    <a href="#about" class="hover:text-[var(--cyan)] transition-colors">About</a>
+                    <a href="#skills" class="hover:text-[var(--cyan)] transition-colors">Skills</a>
+                    <a href="#projects" class="hover:text-[var(--cyan)] transition-colors">Projects</a>
+                    <a href="#achievements" class="hover:text-[var(--cyan)] transition-colors">Achievements</a>
+                    <a href="#contact" class="hover:text-[var(--cyan)] transition-colors">Contact</a>
+                </div>
+
+                <div class="header-social-icons ml-4">
+                    <a href="https://github.com/vijayaideveloper" target="_blank" rel="noopener noreferrer"><i class='bx bxl-github'></i></a>
+                    <a href="https://www.linkedin.com/in/vijay-ai-coder/" target="_blank" rel="noopener noreferrer"><i class='bx bxl-linkedin'></i></a>
+                    <a href="https://www.hackerrank.com/profile/vijaygdhs" target="_blank" rel="noopener noreferrer"><i class='bx bxl-python'></i></a>
+                    <a href="https://leetcode.com/u/vijay0the0coder0/" target="_blank" rel="noopener noreferrer"><i class='bx bx-code-alt'></i></a>
+                </div>
+
+                <a href="#contact" class="btn btn-secondary px-4 py-2 font-mono">Engage</a>
             </div>
-            <a href="#contact" class="hidden md:block btn btn-secondary px-4 py-2 font-mono">Engage</a>
+
             <button id="mobile-menu-button" class="md:hidden text-2xl">
-                <i class='bx bx-menu'></i>
-            </button>
+            <i class='bx bx-menu'></i>
+        </button>
         </nav>
+
         <div id="mobile-menu" class="hidden md:hidden bg-slate-900 flex-col items-center py-4 font-mono">
             <a href="#about" class="block py-2 hover:text-[var(--cyan)]">About</a>
             <a href="#skills" class="block py-2 hover:text-[var(--cyan)]">Skills</a>
             <a href="#projects" class="block py-2 hover:text-[var(--cyan)]">Projects</a>
             <a href="#achievements" class="block py-2 hover:text-[var(--cyan)]">Achievements</a>
             <a href="#contact" class="block py-2 hover:text-[var(--cyan)]">Contact</a>
+
+            <div class="header-social-icons mt-4 mb-2 justify-center">
+                <a href="https://github.com/vijayaideveloper" target="_blank" rel="noopener noreferrer"><i class='bx bxl-github '></i></a>
+                <a href="https://www.linkedin.com/in/vijay-ai-coder/" target="_blank" rel="noopener noreferrer"><i class='bx bxl-linkedin'></i></a>
+                <a href="https://www.hackerrank.com/profile/vijaygdhs" target="_blank" rel="noopener noreferrer"><i class='bx bxl-python'></i></a>
+                <a href="https://leetcode.com/u/vijay0the0coder0/" target="_blank" rel="noopener noreferrer"><i class='bx bx-code-alt'></i></a>
+            </div>
+
             <a href="#contact" class="mt-2 btn btn-primary">Engage</a>
         </div>
     </header>
@@ -398,7 +449,7 @@
             </form>
             <div id="form-result" class="mt-6 text-center"></div>
 
-            <div class="flex justify-center space-x-6 mt-12 text-2xl text-slate-400" data-aos="fade-up" data-aos-delay="300">
+            <div class="header-social-icons flex justify-center space-x-6 mt-12 text-2xl text-slate-400" data-aos="fade-up" data-aos-delay="300">
                 <a href="https://github.com/vijayaideveloper" target="_blank" rel="noopener noreferrer" class="hover:text-[var(--cyan)] transition-colors"><i class='bx bxl-github'></i></a>
                 <a href="https://www.linkedin.com/in/vijay-ai-coder/" target="_blank" rel="noopener noreferrer" class="hover:text-[var(--cyan)] transition-colors"><i class='bx bxl-linkedin'></i></a>
                 <a href="https://leetcode.com/u/vijay0the0coder0/" target="_blank" rel="noopener noreferrer" class="hover:text-[var(--cyan)] transition-colors"><i class='bx bx-code-alt' ></i></a>
@@ -408,7 +459,7 @@
     </main>
 
     <footer class="text-center py-6 text-slate-500 text-sm font-mono">
-        <p>Designed & Built by Vijayakumar // Model v2.1</p>
+        <p>Designed & Built by Vijayakumar</p>
         <p>Copyright &copy; 2025</p>
     </footer>
 
@@ -580,7 +631,7 @@
             // --- Initialize AOS ---
             AOS.init({
                 duration: 800,
-                once: true
+                once: false
             });
 
             // --- Mobile Menu Logic ---
