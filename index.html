@@ -9,7 +9,6 @@
 
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤖</text></svg>">
 
-    <!-- External Libraries -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
@@ -81,23 +80,6 @@
             background: linear-gradient(to right, var(--cyan), #38bdf8);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-        }
-        
-        .section-title {
-            font-family: 'Poppins', sans-serif;
-            font-weight: 700;
-            font-size: 2.25rem;
-            letter-spacing: -0.025em;
-            margin-bottom: 2.5rem;
-            text-align: center;
-            color: var(--white);
-        }
-        
-        .section-title .section-number {
-            font-family: 'Roboto Mono', monospace;
-            color: var(--cyan);
-            font-size: 1.25rem;
-            margin-right: 0.5rem;
         }
         
         .btn {
@@ -208,7 +190,7 @@
     </div>
 
     <header class="bg-slate-950/70 backdrop-blur-sm fixed top-0 left-0 right-0 z-50 shadow-md border-b border-slate-800">
-        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+        <nav class="container mx-auto px-4 sm:px-6 py-4 flex justify-between items-center">
             <a href="#" class="text-2xl font-bold gradient-text font-mono justify-center">VJ</a>
 
             <div class="hidden md:flex items-center space-x-8 grow justify-end">
@@ -232,8 +214,8 @@
             </div>
 
             <button id="mobile-menu-button" class="md:hidden text-2xl">
-            <i class='bx bx-menu'></i>
-        </button>
+                <i class='bx bx-menu'></i>
+            </button>
         </nav>
 
         <div id="mobile-menu" class="hidden md:hidden bg-slate-900 flex-col items-center py-4 font-mono">
@@ -254,14 +236,13 @@
         </div>
     </header>
 
-    <main class="container mx-auto px-6 relative z-10">
+    <main class="container mx-auto px-4 sm:px-6 relative z-10">
 
-        <!-- Home Section -->
-        <section id="home" class="min-h-screen flex flex-col justify-center items-start pt-24 md:pt-0">
+        <section id="home" class="min-h-screen flex flex-col justify-center items-start pt-28 sm:pt-24 md:pt-0">
             <div class="max-w-3xl">
                 <p class="text-[var(--cyan)] text-lg font-mono mb-2" data-aos="fade-up" data-aos-delay="100">Initializing sequence...</p>
-                <h1 id="typewriter-h1" class="text-4xl md:text-7xl font-bold text-white mb-4"></h1>
-                <h2 id="typewriter-h2" class="text-3xl md:text-5xl font-bold text-slate-400 mb-6"></h2>
+                <h1 id="typewriter-h1" class="text-4xl sm:text-6xl lg:text-7xl font-bold text-white mb-4"></h1>
+                <h2 id="typewriter-h2" class="text-2xl sm:text-4xl lg:text-5xl font-bold text-slate-400 mb-6"></h2>
                 <p class="text-lg text-slate-400 max-w-xl mb-8" data-aos="fade-up" data-aos-delay="1600">
                     I architect and develop intelligent systems, leveraging AI, Data Science, and Web Technologies to build impactful, real-world solutions.
                 </p>
@@ -272,10 +253,9 @@
             </div>
         </section>
 
-        <!-- About Section -->
-        <section id="about" class="py-20 md:py-32">
-            <h2 class="section-title" data-aos="fade-up">
-                <span class="section-number">01.</span> Core Programming
+        <section id="about" class="py-20 sm:py-24 md:py-32">
+            <h2 class="text-3xl sm:text-4xl font-bold text-white text-center mb-10 tracking-tight" data-aos="fade-up">
+                <span class="font-mono text-[var(--cyan)] text-lg sm:text-xl mr-2">01.</span> Core Programming
             </h2>
             <div class="grid md:grid-cols-5 gap-10 items-center">
                 <div class="md:col-span-3 text-slate-400 text-lg space-y-4" data-aos="fade-right" data-aos-delay="200">
@@ -289,8 +269,7 @@
                     </p>
                 </div>
                 <div class="md:col-span-2 flex justify-center" data-aos="fade-left" data-aos-delay="200">
-                    <div class="w-64 h-64 rounded-lg relative group">
-                        <!-- src="https://placehold.co/300x300/020617/00f6ff?text=VJ" -->
+                    <div class="w-56 h-56 sm:w-64 sm:h-64 rounded-lg relative group">
                         <img src="images/Master.jpg" alt="Vijayakumar" class="w-full h-full object-cover rounded-lg transition-all duration-300 opacity-70 group-hover:opacity-100">
                         <div class="absolute inset-0 border-2 border-[var(--cyan)] rounded-lg -z-10 transform translate-x-4 translate-y-4 transition-transform duration-300 group-hover:translate-x-2 group-hover:translate-y-2 group-hover:shadow-[0_0_20px_var(--cyan)]"></div>
                     </div>
@@ -298,10 +277,9 @@
             </div>
         </section>
 
-        <!-- Skills Section -->
-        <section id="skills" class="py-20 md:py-32">
-            <h2 class="section-title" data-aos="fade-up">
-                <span class="section-number">02.</span> Technical Matrix
+        <section id="skills" class="py-20 sm:py-24 md:py-32">
+            <h2 class="text-3xl sm:text-4xl font-bold text-white text-center mb-10 tracking-tight" data-aos="fade-up">
+                <span class="font-mono text-[var(--cyan)] text-lg sm:text-xl mr-2">02.</span> Technical Matrix
             </h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 <div class="card-base" data-aos="fade-up" data-aos-delay="100">
@@ -335,10 +313,9 @@
             </div>
         </section>
 
-        <!-- Projects Section -->
-        <section id="projects" class="py-20 md:py-32">
-            <h2 class="section-title" data-aos="fade-up">
-                <span class="section-number">03.</span> Project Showcase
+        <section id="projects" class="py-20 sm:py-24 md:py-32">
+            <h2 class="text-3xl sm:text-4xl font-bold text-white text-center mb-10 tracking-tight" data-aos="fade-up">
+                <span class="font-mono text-[var(--cyan)] text-lg sm:text-xl mr-2">03.</span> Project Showcase
             </h2>
             <div class="space-y-16">
                 <div class="card-base grid md:grid-cols-2 gap-6 items-center" data-aos="fade-up">
@@ -383,10 +360,9 @@
             </div>
         </section>
 
-        <!-- Achievements Section -->
-        <section id="achievements" class="py-20 md:py-32">
-            <h2 class="section-title" data-aos="fade-up">
-                <span class="section-number">04.</span> Performance Benchmarks
+        <section id="achievements" class="py-20 sm:py-24 md:py-32">
+            <h2 class="text-3xl sm:text-4xl font-bold text-white text-center mb-10 tracking-tight" data-aos="fade-up">
+                <span class="font-mono text-[var(--cyan)] text-lg sm:text-xl mr-2">04.</span> Performance Benchmarks
             </h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="card-base text-center" data-aos="fade-up" data-aos-delay="100">
@@ -408,25 +384,21 @@
             </div>
         </section>
 
-        <!-- Contact Section -->
-        <section id="contact" class="py-20 md:py-32 text-center max-w-2xl mx-auto">
-            <h2 class="section-title" data-aos="fade-up">
-                <span class="section-number">05.</span> Establish Connection
+        <section id="contact" class="py-20 sm:py-24 md:py-32 text-center max-w-2xl mx-auto">
+            <h2 class="text-3xl sm:text-4xl font-bold text-white text-center mb-10 tracking-tight" data-aos="fade-up">
+                <span class="font-mono text-[var(--cyan)] text-lg sm:text-xl mr-2">05.</span> Establish Connection
             </h2>
             <p class="text-slate-400 mb-8 text-lg" data-aos="fade-up" data-aos-delay="100">
                 My network is open for connection. Whether you have a query or a proposal, I will process your request and respond promptly.
             </p>
 
             <form id="contact-form" class="text-left" data-aos="fade-up" data-aos-delay="200">
-                <!-- REQUIRED: Access Key is now inserted! -->
                 <input type="hidden" name="access_key" value="f49f00a1-6ae9-40d2-ab91-4cdf3c50397b">
 
-                <!-- Optional: All of these are hidden as requested -->
                 <input type="hidden" name="subject" value="New Contact Form Submission from Your Portfolio">
                 <input type="hidden" name="from_name" value="Vijayakumar's Portfolio">
                 <input type="checkbox" name="botcheck" style="display: none;">
 
-                <!-- VISIBLE FORM FIELDS -->
                 <div class="mb-4">
                     <label for="name" class="block text-slate-400 mb-2 font-mono">Full Name</label>
                     <input type="text" id="name" name="name" class="form-input" required>
@@ -463,7 +435,6 @@
         <p>Copyright &copy; 2025</p>
     </footer>
 
-    <!-- External and Custom Scripts -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
