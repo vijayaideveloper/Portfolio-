@@ -18,22 +18,38 @@
 
     <style>
          :root {
-            --dark-navy: #020617;
-            --navy: #0f172a;
-            --light-navy: #1e293b;
-            --slate: #94a3b8;
-            --light-slate: #cbd5e1;
-            --white: #e2e8f0;
-            --cyan: #00f6ff;
+            --dark-navy: #0A192F;
+            --navy: #112240;
+            --light-navy: #233554;
+            --slate: #8892B0;
+            --light-slate: #A8B2D1;
+            --white: #CCD6F6;
+            --cyan: #64FFDA;
+            --magenta: #FF64DA;
         }
-        
+
         body {
             font-family: 'Poppins', sans-serif;
             background-color: var(--dark-navy);
             color: var(--slate);
             overflow-x: hidden;
+            background-image:
+                linear-gradient(rgba(100, 255, 218, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(100, 255, 218, 0.05) 1px, transparent 1px);
+            background-size: 2rem 2rem;
         }
-        
+
+        #scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(to right, var(--cyan), var(--magenta));
+            width: 0%;
+            z-index: 100;
+            transition: width 0.1s ease-out;
+        }
+
         #bg-canvas {
             position: fixed;
             top: 0;
@@ -43,196 +59,274 @@
             z-index: -1;
         }
         
-        .header-social-icons {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            /* 16px */
-        }
-        
-        .header-social-icons a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 36px;
-            height: 36px;
-            font-size: 20px;
-            color: var(--slate);
-            border: 2px solid transparent;
-            border-color: #00f6ff;
-            border-radius: 50%;
-            transition: all 0.3s ease;
-        }
-        
-        .header-social-icons a:hover {
-            color: var(--cyan);
-            border-color: var(--cyan);
-            background-color: rgba(0, 246, 255, 0.1);
-            transform: translateY(-2px);
-            box-shadow: 0 0 20px rgba(0, 238, 255, 0.4);
-        }
-        
         .font-mono {
             font-family: 'Roboto Mono', monospace;
         }
-        
+
         .gradient-text {
-            background: linear-gradient(to right, var(--cyan), #38bdf8);
+            background: linear-gradient(90deg, var(--cyan), var(--magenta));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        
+
         .btn {
             display: inline-block;
             padding: 0.75rem 1.5rem;
-            border-radius: 0.375rem;
+            border-radius: 0.25rem;
             font-weight: 500;
             text-align: center;
             transition: all 0.3s ease;
             transform: translateY(0);
-        }
-        
-        .btn:hover {
-            transform: translateY(-0.25rem);
-            box-shadow: 0 0 15px 0 rgba(0, 246, 255, 0.4);
-        }
-        
-        .btn-primary {
-            background-color: var(--cyan);
-            color: var(--dark-navy);
-            font-weight: 700;
-        }
-        
-        .btn-primary:hover {
-            background-color: rgba(0, 246, 255, 0.9);
-        }
-        
-        .btn-secondary {
             border: 2px solid var(--cyan);
             color: var(--cyan);
+            background-color: transparent;
         }
-        
-        .btn-secondary:hover {
-            background-color: rgba(0, 246, 255, 0.1);
+
+        .btn:hover {
+            background-color: rgba(100, 255, 218, 0.1);
+            transform: translateY(-4px);
+            box-shadow: 0 0 20px 0 rgba(100, 255, 218, 0.3);
         }
-        
+
+        .btn-primary {
+             background-color: var(--cyan);
+             color: var(--dark-navy);
+             font-weight: 700;
+        }
+        .btn-primary:hover {
+            background-color: var(--cyan);
+            box-shadow: 0 0 25px 0 rgba(100, 255, 218, 0.5);
+        }
+
         .card-base {
-            background-color: rgba(15, 23, 42, 0.6);
+            background-color: rgba(17, 34, 64, 0.6);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 0.5rem;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--light-navy);
+            border-radius: 0.375rem;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
             padding: 1.5rem;
             transition: all 0.3s ease;
         }
-        
+
         .card-base:hover {
-            border: 1px solid rgba(0, 246, 255, 0.3);
+            border: 1px solid var(--cyan);
             transform: translateY(-0.5rem);
-            box-shadow: 0 0 25px 0 rgba(0, 246, 255, 0.15);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
         }
-        
+
         #splash-screen {
             background-color: var(--dark-navy);
-            transition: opacity 0.5s ease-in-out;
+            transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
         }
-        
+
         .splash-logo {
-            animation: zoomIn 1.5s ease-in-out forwards;
+            animation: pulse 2s infinite ease-in-out;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.95); opacity: 0.7; }
+            50% { transform: scale(1.05); opacity: 1; }
+            100% { transform: scale(0.95); opacity: 0.7; }
         }
         
-        @keyframes zoomIn {
-            from {
-                transform: scale(0.8);
-                opacity: 0;
-            }
+        /* New Character Reveal Animation */
+        .reveal-text span {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(20px) scale(0.8);
+            animation: reveal-char 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+            animation-delay: calc(var(--char-index) * 60ms);
+        }
+
+        @keyframes reveal-char {
             to {
-                transform: scale(1);
                 opacity: 1;
+                transform: translateY(0) scale(1);
             }
-        }
-        
-        .typewriter-text {
-            border-right: 0.15em solid var(--cyan);
-            white-space: nowrap;
-            overflow: hidden;
-            letter-spacing: .1em;
         }
         
         .form-input {
             width: 100%;
-            background-color: rgba(15, 23, 42, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 0.375rem;
+            background-color: var(--light-navy);
+            border: 1px solid var(--light-navy);
+            border-radius: 0.25rem;
             padding: 0.75rem 1rem;
-            color: var(--light-slate);
+            color: var(--white);
             transition: all 0.3s ease;
         }
-        
+
         .form-input:focus {
             outline: none;
             border-color: var(--cyan);
-            box-shadow: 0 0 10px 0 rgba(0, 246, 255, 0.3);
+            box-shadow: 0 0 10px 0 rgba(100, 255, 218, 0.3);
+        }
+
+        /* Centered Section Heading */
+        .section-heading {
+             display: flex;
+             flex-direction: column;
+             align-items: center;
+             justify-content: center;
+             width: 100%;
+             margin-bottom: 2.5rem;
+             white-space: nowrap;
+        }
+
+        .section-heading:after {
+            content: "";
+            display: block;
+            width: 80px;
+            height: 2px;
+            margin-top: 0.75rem;
+            background: linear-gradient(90deg, var(--cyan), var(--magenta));
         }
         
-        #form-result {
+        .skill-pill {
+            display: inline-block;
+            background-color: var(--light-navy);
+            color: var(--light-slate);
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
             font-family: 'Roboto Mono', monospace;
-            font-size: 1.1rem;
+            font-size: 0.8rem;
+            font-weight: 500;
         }
+
+        /* Awesome Header Styling */
+        .header-animated-border {
+            height: 1px;
+            width: 100%;
+            background: linear-gradient(90deg, var(--dark-navy), var(--cyan), var(--magenta), var(--dark-navy));
+            background-size: 300% 100%;
+            animation: border-animation 8s linear infinite;
+        }
+
+        @keyframes border-animation {
+            0% { background-position: 150% 0; }
+            100% { background-position: -150% 0; }
+        }
+        
+        .nav-link {
+            position: relative;
+            padding: 0.75rem 1rem;
+            color: var(--slate);
+            transition: color 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .nav-link:hover {
+            color: var(--cyan);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--cyan), var(--magenta));
+            transition: width 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Animated Section Box Styling */
+        .animated-section-box {
+            background-color: rgba(17, 34, 64, 0.7);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--light-navy);
+            border-radius: 0.5rem;
+            padding: clamp(1.5rem, 5vw, 3rem);
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.3);
+            transition: border-color 0.4s ease, transform 0.4s ease, box-shadow 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .animated-section-box:hover {
+            border-color: rgba(100, 255, 218, 0.5);
+            transform: translateY(-8px);
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.4);
+        }
+        
+        .animated-section-box::before,
+        .animated-section-box::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 0;
+            box-sizing: border-box;
+            transition: width 0.3s ease-out 0.1s, height 0.3s ease-out 0.1s;
+        }
+
+        .animated-section-box::before {
+            top: -2px;
+            left: -2px;
+            border-top: 2px solid transparent;
+            border-left: 2px solid transparent;
+        }
+
+        .animated-section-box::after {
+            bottom: -2px;
+            right: -2px;
+            border-bottom: 2px solid transparent;
+            border-right: 2px solid transparent;
+        }
+
+        .animated-section-box:hover::before,
+        .animated-section-box:hover::after {
+            width: 40px;
+            height: 40px;
+            border-color: var(--cyan);
+        }
+
     </style>
 </head>
 
 <body class="antialiased">
+    <div id="scroll-progress"></div>
     <canvas id="bg-canvas"></canvas>
 
     <div id="splash-screen" class="fixed top-0 left-0 w-full h-full flex justify-center items-center z-[100]">
         <div class="text-6xl font-bold gradient-text splash-logo">VJ</div>
     </div>
 
-    <header class="bg-slate-950/70 backdrop-blur-sm fixed top-0 left-0 right-0 z-50 shadow-md border-b border-slate-800">
-        <nav class="container mx-auto px-4 sm:px-6 py-4 flex justify-between items-center">
-            <a href="#" class="text-2xl font-bold gradient-text font-mono justify-center">VJ</a>
-
-            <div class="hidden md:flex items-center space-x-8 grow justify-end">
-
-                <div class="flex items-center space-x-6 font-mono bg-slate-900/50 border border-slate-700 px-6 py-2 rounded-full">
-                    <a href="#about" class="hover:text-[var(--cyan)] transition-colors">About</a>
-                    <a href="#skills" class="hover:text-[var(--cyan)] transition-colors">Skills</a>
-                    <a href="#projects" class="hover:text-[var(--cyan)] transition-colors">Projects</a>
-                    <a href="#achievements" class="hover:text-[var(--cyan)] transition-colors">Achievements</a>
-                    <a href="#contact" class="hover:text-[var(--cyan)] transition-colors">Contact</a>
-                </div>
-
-                <div class="header-social-icons ml-4">
-                    <a href="https://github.com/vijayaideveloper" target="_blank" rel="noopener noreferrer"><i class='bx bxl-github'></i></a>
-                    <a href="https://www.linkedin.com/in/vijay-ai-coder/" target="_blank" rel="noopener noreferrer"><i class='bx bxl-linkedin'></i></a>
-                    <a href="https://www.hackerrank.com/profile/vijaygdhs" target="_blank" rel="noopener noreferrer"><i class='bx bxl-python'></i></a>
-                    <a href="https://leetcode.com/u/vijay0the0coder0/" target="_blank" rel="noopener noreferrer"><i class='bx bx-code-alt'></i></a>
-                </div>
-
-                <a href="#contact" class="btn btn-secondary px-4 py-2 font-mono">Engage</a>
+    <header class="bg-dark-navy/80 backdrop-blur-sm fixed top-0 left-0 right-0 z-50 shadow-lg">
+        <nav class="container mx-auto px-4 sm:px-6 py-3 flex justify-between items-center">
+            <a href="#" class="text-3xl font-bold font-mono group shrink-0">
+                <span class="gradient-text group-hover:opacity-80 transition-opacity">VJ</span>
+            </a>
+            
+            <div class="hidden md:flex items-center justify-center flex-grow font-mono text-sm space-x-2">
+                <a href="#about" class="nav-link">About</a>
+                <a href="#skills" class="nav-link">Skills</a>
+                <a href="#projects" class="nav-link">Work</a>
+                <a href="#achievements" class="nav-link">Achievements</a>
+                <a href="#contact" class="nav-link">Contact</a>
             </div>
 
-            <button id="mobile-menu-button" class="md:hidden text-2xl">
+            <div class="hidden md:flex justify-end shrink-0">
+                 <a href="path/to/your/resume.pdf" download class="btn">Download Protocol</a>
+            </div>
+
+            <button id="mobile-menu-button" class="md:hidden text-3xl text-[var(--cyan)]">
                 <i class='bx bx-menu'></i>
             </button>
         </nav>
+        
+        <div class="header-animated-border"></div>
 
-        <div id="mobile-menu" class="hidden md:hidden bg-slate-900 flex-col items-center py-4 font-mono">
-            <a href="#about" class="block py-2 hover:text-[var(--cyan)]">About</a>
-            <a href="#skills" class="block py-2 hover:text-[var(--cyan)]">Skills</a>
-            <a href="#projects" class="block py-2 hover:text-[var(--cyan)]">Projects</a>
-            <a href="#achievements" class="block py-2 hover:text-[var(--cyan)]">Achievements</a>
-            <a href="#contact" class="block py-2 hover:text-[var(--cyan)]">Contact</a>
-
-            <div class="header-social-icons mt-4 mb-2 justify-center">
-                <a href="https://github.com/vijayaideveloper" target="_blank" rel="noopener noreferrer"><i class='bx bxl-github '></i></a>
-                <a href="https://www.linkedin.com/in/vijay-ai-coder/" target="_blank" rel="noopener noreferrer"><i class='bx bxl-linkedin'></i></a>
-                <a href="https://www.hackerrank.com/profile/vijaygdhs" target="_blank" rel="noopener noreferrer"><i class='bx bxl-python'></i></a>
-                <a href="https://leetcode.com/u/vijay0the0coder0/" target="_blank" rel="noopener noreferrer"><i class='bx bx-code-alt'></i></a>
-            </div>
-
-            <a href="#contact" class="mt-2 btn btn-primary">Engage</a>
+        <div id="mobile-menu" class="hidden md:hidden bg-light-navy flex-col items-center py-8 space-y-6 font-mono absolute top-full left-0 w-full">
+            <a href="#about" class="block hover:text-[var(--cyan)]">About</a>
+            <a href="#skills" class="block hover:text-[var(--cyan)]">Skills</a>
+            <a href="#projects" class="block hover:text-[var(--cyan)]">Projects</a>
+            <a href="#achievements" class="block hover:text-[var(--cyan)]">Achievements</a>
+            <a href="#contact" class="block hover:text-[var(--cyan)]">Contact</a>
+            <a href="path/to/your/resume.pdf" download class="mt-4 btn">Download Protocol</a>
         </div>
     </header>
 
@@ -240,205 +334,248 @@
 
         <section id="home" class="min-h-screen flex flex-col justify-center items-start pt-28 sm:pt-24 md:pt-0">
             <div class="max-w-3xl">
-                <p class="text-[var(--cyan)] text-lg font-mono mb-2" data-aos="fade-up" data-aos-delay="100">Initializing sequence...</p>
-                <h1 id="typewriter-h1" class="text-4xl sm:text-6xl lg:text-7xl font-bold text-white mb-4"></h1>
-                <h2 id="typewriter-h2" class="text-2xl sm:text-4xl lg:text-5xl font-bold text-slate-400 mb-6"></h2>
-                <p class="text-lg text-slate-400 max-w-xl mb-8" data-aos="fade-up" data-aos-delay="1600">
-                    I architect and develop intelligent systems, leveraging AI, Data Science, and Web Technologies to build impactful, real-world solutions.
+                <p class="text-[var(--cyan)] text-lg font-mono mb-4" data-aos="fade-up" data-aos-delay="100">Initializing sequence...</p>
+                <h1 id="main-heading" class="text-4xl sm:text-6xl lg:text-7xl font-bold text-white mb-3 reveal-text"></h1>
+                <h2 id="sub-heading" class="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate mb-6 reveal-text"></h2>
+                <p class="text-lg text-slate max-w-xl mb-10" data-aos="fade-up" data-aos-delay="1600">
+                    I architect and develop intelligent, scalable systems. I leverage AI, Data Science, and modern Web Technologies to translate complex problems into impactful, real-world solutions.
                 </p>
-                <div class="flex flex-col sm:flex-row gap-4" data-aos="fade-up" data-aos-delay="1700">
-                    <a href="#projects" class="btn btn-primary">Analyze My Work</a>
-                    <a href="path/to/your/resume.pdf" download class="btn btn-secondary">Download Protocol</a>
+                <div data-aos="fade-up" data-aos-delay="1700">
+                    <a href="#contact" class="btn btn-primary text-lg">Establish Connection</a>
                 </div>
             </div>
         </section>
 
-        <section id="about" class="py-20 sm:py-24 md:py-32">
-            <h2 class="text-3xl sm:text-4xl font-bold text-white text-center mb-10 tracking-tight" data-aos="fade-up">
-                <span class="font-mono text-[var(--cyan)] text-lg sm:text-xl mr-2">01.</span> Core Programming
+        <section id="about" class="py-24 md:py-32">
+            <h2 class="section-heading text-3xl sm:text-4xl font-bold text-white tracking-tight" data-aos="fade-down">
+                Core Directives
             </h2>
-            <div class="grid md:grid-cols-5 gap-10 items-center">
-                <div class="md:col-span-3 text-slate-400 text-lg space-y-4" data-aos="fade-right" data-aos-delay="200">
-                    <p>
-                        Hello. I’m Vijayakumar, a B.Tech student at Anna University specializing in Artificial Intelligence and Data Science. My core function is driven by a curiosity for how data can be processed to solve complex, real-world problems. This directive fuels my
-                        continuous learning and development of creative, high-impact projects.
-                    </p>
-                    <p>
-                        I am currently enhancing my parameters in advanced Machine Learning algorithms and deploying full-stack web applications. I operate efficiently in collaborative networks and my greatest assets are my <strong class="text-slate-200">analytical problem-solving</strong>,
-                        commitment to <strong class="text-slate-200">network synergy</strong>, and clear <strong class="text-slate-200">data transmission</strong> (communication).
-                    </p>
-                </div>
-                <div class="md:col-span-2 flex justify-center" data-aos="fade-left" data-aos-delay="200">
-                    <div class="w-56 h-56 sm:w-64 sm:h-64 rounded-lg relative group">
-                        <img src="images/Master.jpg" alt="Vijayakumar" class="w-full h-full object-cover rounded-lg transition-all duration-300 opacity-70 group-hover:opacity-100">
-                        <div class="absolute inset-0 border-2 border-[var(--cyan)] rounded-lg -z-10 transform translate-x-4 translate-y-4 transition-transform duration-300 group-hover:translate-x-2 group-hover:translate-y-2 group-hover:shadow-[0_0_20px_var(--cyan)]"></div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="skills" class="py-20 sm:py-24 md:py-32">
-            <h2 class="text-3xl sm:text-4xl font-bold text-white text-center mb-10 tracking-tight" data-aos="fade-up">
-                <span class="font-mono text-[var(--cyan)] text-lg sm:text-xl mr-2">02.</span> Technical Matrix
-            </h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="card-base" data-aos="fade-up" data-aos-delay="100">
-                    <div class="text-4xl text-[var(--cyan)] mb-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-codesandbox"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="7.5 4.21 12 6.81 16.5 4.21"/><polyline points="7.5 19.79 7.5 14.6 3 12"/><polyline points="16.5 19.79 16.5 14.6 21 12"/><polyline points="12 12 12 22"/><line x1="12" x2="3" y1="12" y2="12"/><line x1="12" x2="21" y1="12" y2="12"/></svg>
-                    </div>
-                    <h3 class="text-xl font-bold text-white mb-2">Languages</h3>
-                    <p class="text-slate-400 font-mono">Python, JavaScript, C++</p>
-                </div>
-                <div class="card-base" data-aos="fade-up" data-aos-delay="200">
-                    <div class="text-4xl text-[var(--cyan)] mb-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-brain-circuit"><path d="M12 5a3 3 0 1 0-5.993.142"/><path d="M18 13a3 3 0 1 0-4.472 2.5"/><path d="M12 19a3 3 0 1 1 .142-5.993"/><path d="M5 13a3 3 0 1 1 2.5-4.472"/><path d="M15.532 6.5A3 3 0 0 1 18 13a3 3 0 0 1-4.472 2.5"/><path d="m2.532 17.5 2.5-4.33"/><path d="m19.468 6.5-2.5 4.33"/><path d="M12 19V5"/><path d="M12 5a3 3 0 0 0 5.993-.142"/><path d="M6 13a3 3 0 0 0-2.5 4.472"/></svg>
-                    </div>
-                    <h3 class="text-xl font-bold text-white mb-2">AI / Machine Learning</h3>
-                    <p class="text-slate-400 font-mono">TensorFlow, PyTorch, Scikit-learn, NumPy, Pandas</p>
-                </div>
-                <div class="card-base" data-aos="fade-up" data-aos-delay="300">
-                    <div class="text-4xl text-[var(--cyan)] mb-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layout-grid"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 12h18"/><path d="M12 3v18"/></svg>
-                    </div>
-                    <h3 class="text-xl font-bold text-white mb-2">Web Architecture</h3>
-                    <p class="text-slate-400 font-mono">HTML, CSS, React, Flask</p>
-                </div>
-                <div class="card-base" data-aos="fade-up" data-aos-delay="400">
-                    <div class="text-4xl text-[var(--cyan)] mb-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-terminal-square"><path d="M7 11v2a1 1 0 0 0 1 1h2"/><path d="m10 15 3-3-3-3"/><rect width="18" height="18" x="3" y="3" rx="2"/></svg>
-                    </div>
-                    <h3 class="text-xl font-bold text-white mb-2">Tools & Platforms</h3>
-                    <p class="text-slate-400 font-mono">Git, GitHub, VS Code, Jupyter, Buildozer</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="projects" class="py-20 sm:py-24 md:py-32">
-            <h2 class="text-3xl sm:text-4xl font-bold text-white text-center mb-10 tracking-tight" data-aos="fade-up">
-                <span class="font-mono text-[var(--cyan)] text-lg sm:text-xl mr-2">03.</span> Project Showcase
-            </h2>
-            <div class="space-y-16">
-                <div class="card-base grid md:grid-cols-2 gap-6 items-center" data-aos="fade-up">
-                    <div class="p-4">
-                        <img src="https://placehold.co/600x400/0f172a/00f6ff?text=Project+Nexus" alt="House Price Prediction" class="rounded-lg shadow-md w-full">
-                    </div>
-                    <div>
-                        <h3 class="text-2xl font-bold text-white mb-3">Predictive Housing Model</h3>
-                        <p class="text-slate-400 mb-4">
-                            A web application that predicts housing market values based on multi-variable analysis. Deployed for live interaction and data input.
+            <div class="animated-section-box" data-aos="fade-up" data-aos-delay="200">
+                <div class="grid md:grid-cols-5 gap-10 items-start">
+                    <div class="md:col-span-3 text-light-slate text-lg space-y-4">
+                        <p>
+                            Hello, my name is Vijayakumar. As a B.Tech student at Anna University specializing in <strong class="text-white font-medium">Artificial Intelligence and Data Science</strong>, my core function is to transform raw data into intelligent action. I am driven by a fundamental curiosity for solving complex, real-world problems through elegant code and robust system design.
                         </p>
-                        <div class="flex flex-wrap gap-2 mb-4 font-mono">
-                            <span class="bg-slate-900 text-[var(--cyan)] text-sm font-medium px-3 py-1 rounded-full">Python</span>
-                            <span class="bg-slate-900 text-[var(--cyan)] text-sm font-medium px-3 py-1 rounded-full">Scikit-learn</span>
-                            <span class="bg-slate-900 text-[var(--cyan)] text-sm font-medium px-3 py-1 rounded-full">Streamlit</span>
-                        </div>
-                        <div class="flex items-center gap-4 text-2xl">
-                            <a href="#" class="text-slate-400 hover:text-[var(--cyan)] transition-colors"><i class='bx bxl-github'></i></a>
-                            <a href="#" class="text-slate-400 hover:text-[var(--cyan)] transition-colors"><i class='bx bx-link-external'></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-base grid md:grid-cols-2 gap-6 items-center" data-aos="fade-up">
-                    <div class="p-4 md:order-2">
-                        <img src="https://placehold.co/600x400/0f172a/00f6ff?text=Data+Visualization" alt="IPL Data Analysis" class="rounded-lg shadow-md w-full">
-                    </div>
-                    <div class="md:order-1 md:text-right">
-                        <h3 class="text-2xl font-bold text-white mb-3">IPL Performance Analysis</h3>
-                        <p class="text-slate-400 mb-4">
-                            An in-depth analysis of IPL datasets to uncover strategic trends and player performance metrics, visualized through interactive dashboards.
+                        <p>
+                            Currently, I am focused on mastering advanced Machine Learning algorithms and engineering full-stack web applications for seamless deployment. I thrive in collaborative networks, where my key assets are <strong class="text-white font-medium">analytical problem-solving</strong>, a commitment to <strong class="text-white font-medium">network synergy</strong> (teamwork), and clear <strong class="text-white font-medium">data transmission</strong> (communication).
                         </p>
-                        <div class="flex flex-wrap gap-2 mb-4 justify-start md:justify-end font-mono">
-                            <span class="bg-slate-900 text-[var(--cyan)] text-sm font-medium px-3 py-1 rounded-full">Python</span>
-                            <span class="bg-slate-900 text-[var(--cyan)] text-sm font-medium px-3 py-1 rounded-full">Pandas</span>
-                            <span class="bg-slate-900 text-[var(--cyan)] text-sm font-medium px-3 py-1 rounded-full">Matplotlib</span>
-                        </div>
-                        <div class="flex items-center gap-4 justify-start md:justify-end text-2xl">
-                            <a href="#" class="text-slate-400 hover:text-[var(--cyan)] transition-colors"><i class='bx bxl-github'></i></a>
+                    </div>
+                    <div class="md:col-span-2 flex justify-center md:justify-end">
+                        <div class="w-60 h-60 sm:w-64 sm:h-64 rounded-md relative group">
+                            <div class="absolute inset-0 bg-[var(--cyan)] rounded-md transition-transform duration-300 transform group-hover:translate-x-3 group-hover:translate-y-3 z-0"></div>
+                            <img src="https://placehold.co/300x300/112240/FFFFFF?text=VJ" alt="Vijayakumar" class="w-full h-full object-cover rounded-md z-10 relative transition-all duration-300 opacity-80 group-hover:opacity-100 filter grayscale group-hover:filter-none">
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="achievements" class="py-20 sm:py-24 md:py-32">
-            <h2 class="text-3xl sm:text-4xl font-bold text-white text-center mb-10 tracking-tight" data-aos="fade-up">
-                <span class="font-mono text-[var(--cyan)] text-lg sm:text-xl mr-2">04.</span> Performance Benchmarks
+        <section id="skills" class="py-24 md:py-32">
+            <h2 class="section-heading text-3xl sm:text-4xl font-bold text-white tracking-tight" data-aos="fade-down">
+                Technical Matrix
             </h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="card-base text-center" data-aos="fade-up" data-aos-delay="100">
-                    <div class="text-5xl text-[var(--cyan)] mb-4 mx-auto"><i class='bx bx-trophy'></i></div>
-                    <h3 class="text-2xl font-bold text-white mb-2">LeetCode</h3>
-                    <p class="text-slate-400 mb-6">
-                        Consistently solving algorithmic challenges to strengthen my understanding of data structures and optimization.
-                    </p>
-                    <a href="https://leetcode.com/u/vijay0the0coder0/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">View Profile</a>
-                </div>
-                <div class="card-base text-center" data-aos="fade-up" data-aos-delay="200">
-                    <div class="text-5xl text-[var(--cyan)] mb-4 mx-auto"><i class='bx bxs-star'></i></div>
-                    <h3 class="text-2xl font-bold text-white mb-2">HackerRank</h3>
-                    <p class="text-slate-400 mb-6">
-                        Achieved 5-star ratings in Python & Problem Solving, demonstrating proficiency through competitive challenges.
-                    </p>
-                    <a href="https://www.hackerrank.com/profile/vijaygdhs" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">View Profile</a>
+            <div class="animated-section-box" data-aos="fade-up" data-aos-delay="200">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="card-base">
+                        <div class="text-5xl text-[var(--cyan)] mb-4"><i class='bx bx-code-curly'></i></div>
+                        <h3 class="text-xl font-bold text-white mb-4">Languages</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="skill-pill">Python</span>
+                            <span class="skill-pill">JavaScript</span>
+                            <span class="skill-pill">C++</span>
+                        </div>
+                    </div>
+                    <div class="card-base">
+                        <div class="text-5xl text-[var(--cyan)] mb-4"><i class='bx bx-brain'></i></div>
+                        <h3 class="text-xl font-bold text-white mb-4">AI / ML</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="skill-pill">TensorFlow</span>
+                            <span class="skill-pill">PyTorch</span>
+                            <span class="skill-pill">Scikit-learn</span>
+                            <span class="skill-pill">NumPy</span>
+                            <span class="skill-pill">Pandas</span>
+                        </div>
+                    </div>
+                    <div class="card-base">
+                        <div class="text-5xl text-[var(--cyan)] mb-4"><i class='bx bx-window-alt'></i></div>
+                        <h3 class="text-xl font-bold text-white mb-4">Web Architecture</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="skill-pill">HTML</span>
+                            <span class="skill-pill">CSS</span>
+                            <span class="skill-pill">React</span>
+                            <span class="skill-pill">Flask</span>
+                        </div>
+                    </div>
+                    <div class="card-base">
+                        <div class="text-5xl text-[var(--cyan)] mb-4"><i class='bx bxl-git'></i></div>
+                        <h3 class="text-xl font-bold text-white mb-4">Tools & Platforms</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="skill-pill">Git</span>
+                            <span class="skill-pill">GitHub</span>
+                            <span class="skill-pill">VS Code</span>
+                            <span class="skill-pill">Jupyter</span>
+                            <span class="skill-pill">Buildozer</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <section id="contact" class="py-20 sm:py-24 md:py-32 text-center max-w-2xl mx-auto">
-            <h2 class="text-3xl sm:text-4xl font-bold text-white text-center mb-10 tracking-tight" data-aos="fade-up">
-                <span class="font-mono text-[var(--cyan)] text-lg sm:text-xl mr-2">05.</span> Establish Connection
+        <section id="projects" class="py-24 md:py-32">
+             <h2 class="section-heading text-3xl sm:text-4xl font-bold text-white tracking-tight" data-aos="fade-down">
+                Project Showcase
             </h2>
-            <p class="text-slate-400 mb-8 text-lg" data-aos="fade-up" data-aos-delay="100">
-                My network is open for connection. Whether you have a query or a proposal, I will process your request and respond promptly.
-            </p>
+            <div class="animated-section-box" data-aos="fade-up" data-aos-delay="200">
+                <div class="space-y-16">
+                    <div class="grid grid-cols-12 gap-4 items-center">
+                        <div class="col-span-12 md:col-span-7 relative group">
+                            <a href="#" target="_blank" rel="noopener noreferrer" class="block">
+                                <img src="https://placehold.co/800x500/0A192F/64FFDA?text=Project+Nexus" alt="Predictive Housing Model" class="rounded-md shadow-lg w-full">
+                                <div class="absolute inset-0 bg-dark-navy/70 group-hover:bg-transparent transition-colors duration-300 rounded-md"></div>
+                            </a>
+                        </div>
+                        <div class="col-span-12 md:col-span-5 z-10 md:text-right">
+                            <p class="font-mono text-[var(--cyan)] text-sm mb-1">Featured Project</p>
+                            <h3 class="text-2xl font-bold text-white mb-3 hover:text-[var(--cyan)] transition-colors"><a href="#">Predictive Housing Model</a></h3>
+                            <div class="p-4 bg-navy rounded-md shadow-lg text-slate text-left md:text-right">
+                               A web application that predicts housing market values based on multi-variable analysis. Deployed for live interaction and data input.
+                            </div>
+                            <div class="flex flex-wrap gap-x-4 gap-y-2 my-4 justify-start md:justify-end font-mono text-sm">
+                                <span class="text-[var(--light-slate)]">Python</span>
+                                <span class="text-[var(--light-slate)]">Scikit-learn</span>
+                                <span class="text-[var(--light-slate)]">Streamlit</span>
+                            </div>
+                            <div class="flex items-center gap-4 justify-start md:justify-end text-2xl">
+                                <a href="#" class="text-slate hover:text-[var(--cyan)] transition-colors"><i class='bx bxl-github'></i></a>
+                                <a href="#" class="text-slate hover:text-[var(--cyan)] transition-colors"><i class='bx bx-link-external'></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-12 gap-4 items-center">
+                        <div class="col-span-12 md:col-span-5 z-10 md:text-left order-2 md:order-1">
+                            <p class="font-mono text-[var(--cyan)] text-sm mb-1">Data Analysis</p>
+                            <h3 class="text-2xl font-bold text-white mb-3 hover:text-[var(--cyan)] transition-colors"><a href="#">IPL Performance Analysis</a></h3>
+                            <div class="p-4 bg-navy rounded-md shadow-lg text-slate text-left">
+                               An in-depth analysis of IPL datasets to uncover strategic trends and player performance metrics, visualized through interactive dashboards.
+                            </div>
+                            <div class="flex flex-wrap gap-x-4 gap-y-2 my-4 justify-start font-mono text-sm">
+                                <span class="text-[var(--light-slate)]">Python</span>
+                                <span class="text-[var(--light-slate)]">Pandas</span>
+                                <span class="text-[var(--light-slate)]">Matplotlib</span>
+                            </div>
+                            <div class="flex items-center gap-4 justify-start text-2xl">
+                                <a href="#" class="text-slate hover:text-[var(--cyan)] transition-colors"><i class='bx bxl-github'></i></a>
+                            </div>
+                        </div>
+                         <div class="col-span-12 md:col-span-7 relative group order-1 md:order-2">
+                            <a href="#" target="_blank" rel="noopener noreferrer" class="block">
+                                 <img src="https://placehold.co/800x500/0A192F/64FFDA?text=Data+Viz" alt="IPL Data Analysis" class="rounded-md shadow-lg w-full">
+                                <div class="absolute inset-0 bg-dark-navy/70 group-hover:bg-transparent transition-colors duration-300 rounded-md"></div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-            <form id="contact-form" class="text-left" data-aos="fade-up" data-aos-delay="200">
-                <input type="hidden" name="access_key" value="f49f00a1-6ae9-40d2-ab91-4cdf3c50397b">
+        <section id="achievements" class="py-24 md:py-32">
+             <h2 class="section-heading text-3xl sm:text-4xl font-bold text-white tracking-tight" data-aos="fade-down">
+                Performance Benchmarks
+            </h2>
+            <div class="animated-section-box" data-aos="fade-up" data-aos-delay="200">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="card-base text-center">
+                        <div class="text-6xl text-[var(--cyan)] mb-4 mx-auto"><i class='bx bx-code-alt'></i></div>
+                        <h3 class="text-2xl font-bold text-white mb-2">LeetCode</h3>
+                        <p class="text-light-slate mb-6">
+                            Consistently solving algorithmic challenges to strengthen my understanding of data structures and optimization techniques.
+                        </p>
+                        <a href="https://leetcode.com/u/vijay0the0coder0/" target="_blank" rel="noopener noreferrer" class="btn">View Profile</a>
+                    </div>
+                    <div class="card-base text-center">
+                        <div class="text-6xl text-[var(--cyan)] mb-4 mx-auto"><i class='bx bxs-keyboard'></i></div>
+                        <h3 class="text-2xl font-bold text-white mb-2">HackerRank</h3>
+                        <p class="text-light-slate mb-6">
+                            Achieved 5-star ratings in Python & Problem Solving, demonstrating proficiency through competitive challenges.
+                        </p>
+                        <a href="https://www.hackerrank.com/profile/vijaygdhs" target="_blank" rel="noopener noreferrer" class="btn">View Profile</a>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-                <input type="hidden" name="subject" value="New Contact Form Submission from Your Portfolio">
-                <input type="hidden" name="from_name" value="Vijayakumar's Portfolio">
-                <input type="checkbox" name="botcheck" style="display: none;">
+        <section id="contact" class="py-24 md:py-32 text-center max-w-2xl mx-auto">
+            <h2 class="section-heading text-4xl sm:text-5xl font-bold text-white" data-aos="fade-down">
+               Establish Connection
+            </h2>
+            <div class="animated-section-box" data-aos="fade-up" data-aos-delay="200">
+                <p class="text-light-slate mb-10 text-lg">
+                    My network is open for new connections and opportunities. Whether you have a query, a project proposal, or just want to connect, I will process your request and respond promptly.
+                </p>
 
-                <div class="mb-4">
-                    <label for="name" class="block text-slate-400 mb-2 font-mono">Full Name</label>
-                    <input type="text" id="name" name="name" class="form-input" required>
-                </div>
-                <div class="mb-4">
-                    <label for="email" class="block text-slate-400 mb-2 font-mono">Email Address</label>
-                    <input type="email" id="email" name="email" class="form-input" required>
-                </div>
-                <div class="mb-4">
-                    <label for="phone" class="block text-slate-400 mb-2 font-mono">Phone Number (Optional)</label>
-                    <input type="text" id="phone" name="phone" class="form-input">
-                </div>
-                <div class="mb-6">
-                    <label for="message" class="block text-slate-400 mb-2 font-mono">Message</label>
-                    <textarea id="message" name="message" rows="4" class="form-input" required></textarea>
-                </div>
-                <div class="text-center">
-                    <button type="submit" class="btn btn-primary text-lg w-full md:w-auto">Transmit Message</button>
-                </div>
-            </form>
-            <div id="form-result" class="mt-6 text-center"></div>
+                 <form id="contact-form" class="text-left max-w-lg mx-auto">
+                    <input type="hidden" name="access_key" value="f49f00a1-6ae9-40d2-ab91-4cdf3c50397b">
+                    <input type="hidden" name="subject" value="New Contact Form Submission from Your Portfolio">
+                    <input type="checkbox" name="botcheck" style="display: none;">
 
-            <div class="header-social-icons flex justify-center space-x-6 mt-12 text-2xl text-slate-400" data-aos="fade-up" data-aos-delay="300">
-                <a href="https://github.com/vijayaideveloper" target="_blank" rel="noopener noreferrer" class="hover:text-[var(--cyan)] transition-colors"><i class='bx bxl-github'></i></a>
-                <a href="https://www.linkedin.com/in/vijay-ai-coder/" target="_blank" rel="noopener noreferrer" class="hover:text-[var(--cyan)] transition-colors"><i class='bx bxl-linkedin'></i></a>
-                <a href="https://leetcode.com/u/vijay0the0coder0/" target="_blank" rel="noopener noreferrer" class="hover:text-[var(--cyan)] transition-colors"><i class='bx bx-code-alt' ></i></a>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label for="name" class="block text-slate mb-2 font-mono text-sm">Name</label>
+                            <input type="text" id="name" name="name" class="form-input" required>
+                        </div>
+                        <div>
+                             <label for="email" class="block text-slate mb-2 font-mono text-sm">Email</label>
+                            <input type="email" id="email" name="email" class="form-input" required>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <label for="message" class="block text-slate mb-2 font-mono text-sm">Message</label>
+                        <textarea id="message" name="message" rows="4" class="form-input" required></textarea>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary text-lg w-full md:w-auto">Transmit Message</button>
+                    </div>
+                </form>
+                <div id="form-result" class="mt-6 text-center"></div>
             </div>
         </section>
 
     </main>
 
-    <footer class="text-center py-6 text-slate-500 text-sm font-mono">
-        <p>Designed & Built by Vijayakumar</p>
-        <p>Copyright &copy; 2025</p>
+    <footer class="text-center py-8">
+        <div class="flex justify-center space-x-6 mb-4 md:hidden text-2xl text-slate">
+            <a href="https://github.com/vijayaideveloper" target="_blank" rel="noopener noreferrer" class="hover:text-[var(--cyan)] transition-colors"><i class='bx bxl-github'></i></a>
+            <a href="https://www.linkedin.com/in/vijay-ai-coder/" target="_blank" rel="noopener noreferrer" class="hover:text-[var(--cyan)] transition-colors"><i class='bx bxl-linkedin'></i></a>
+            <a href="https://leetcode.com/u/vijay0the0coder0/" target="_blank" rel="noopener noreferrer" class="hover:text-[var(--cyan)] transition-colors"><i class='bx bx-code-alt' ></i></a>
+        </div>
+        <p class="font-mono text-slate text-sm">Designed & Built by Vijayakumar</p>
+        <p class="font-mono text-slate text-xs">&copy; 2025</p>
     </footer>
+    
+    <div class="hidden md:flex flex-col items-center fixed bottom-0 left-10 z-20">
+        <div class="flex flex-col gap-6 text-2xl text-slate after:content-[''] after:block after:w-px after:h-24 after:bg-slate after:mx-auto after:mt-6">
+            <a href="https://github.com/vijayaideveloper" target="_blank" rel="noopener noreferrer" class="hover:text-[var(--cyan)] hover:-translate-y-1 transition-all"><i class='bx bxl-github'></i></a>
+            <a href="https://www.linkedin.com/in/vijay-ai-coder/" target="_blank" rel="noopener noreferrer" class="hover:text-[var(--cyan)] hover:-translate-y-1 transition-all"><i class='bx bxl-linkedin'></i></a>
+            <a href="https://www.hackerrank.com/profile/vijaygdhs" target="_blank" rel="noopener noreferrer" class="hover:text-[var(--cyan)] hover:-translate-y-1 transition-all"><i class='bx bxl-python'></i></a>
+            <a href="https://leetcode.com/u/vijay0the0coder0/" target="_blank" rel="noopener noreferrer" class="hover:text-[var(--cyan)] hover:-translate-y-1 transition-all"><i class='bx bx-code-alt'></i></a>
+        </div>
+    </div>
+
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // --- Particle Background Animation ---
+
+            const scrollProgress = document.getElementById('scroll-progress');
+            if(scrollProgress) {
+                window.addEventListener('scroll', () => {
+                    const scrollTop = document.documentElement.scrollTop;
+                    const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                    const scrollPercentage = (scrollTop / scrollHeight) * 100;
+                    scrollProgress.style.width = `${scrollPercentage}%`;
+                });
+            }
+
             const canvas = document.getElementById('bg-canvas');
             if (canvas) {
                 const ctx = canvas.getContext('2d');
@@ -446,55 +583,20 @@
                 canvas.height = window.innerHeight;
                 let particlesArray;
 
-                let mouse = {
-                    x: null,
-                    y: null,
-                    radius: (canvas.height / 110) * (canvas.width / 110)
-                };
-                window.addEventListener('mousemove', (event) => {
-                    mouse.x = event.x;
-                    mouse.y = event.y;
-                });
-
                 class Particle {
-                    constructor(x, y, directionX, directionY, size, color) {
-                        this.x = x;
-                        this.y = y;
-                        this.directionX = directionX;
-                        this.directionY = directionY;
+                    constructor(x, y, dirX, dirY, size) {
+                        this.x = x; this.y = y; this.directionX = dirX; this.directionY = dirY;
                         this.size = size;
-                        this.color = color;
                     }
                     draw() {
                         ctx.beginPath();
                         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
-                        ctx.fillStyle = 'rgba(0, 246, 255, 0.5)';
+                        ctx.fillStyle = 'rgba(100, 255, 218, 0.5)';
                         ctx.fill();
                     }
                     update() {
-                        if (this.x > canvas.width || this.x < 0) {
-                            this.directionX = -this.directionX;
-                        }
-                        if (this.y > canvas.height || this.y < 0) {
-                            this.directionY = -this.directionY;
-                        }
-                        let dx = mouse.x - this.x;
-                        let dy = mouse.y - this.y;
-                        let distance = Math.sqrt(dx * dx + dy * dy);
-                        if (distance < mouse.radius + this.size) {
-                            if (mouse.x < this.x && this.x < canvas.width - this.size * 10) {
-                                this.x += 5;
-                            }
-                            if (mouse.x > this.x && this.x > this.size * 10) {
-                                this.x -= 5;
-                            }
-                            if (mouse.y < this.y && this.y < canvas.height - this.size * 10) {
-                                this.y += 5;
-                            }
-                            if (mouse.y > this.y && this.y > this.size * 10) {
-                                this.y -= 5;
-                            }
-                        }
+                        if (this.x > canvas.width || this.x < 0) this.directionX = -this.directionX;
+                        if (this.y > canvas.height || this.y < 0) this.directionY = -this.directionY;
                         this.x += this.directionX;
                         this.y += this.directionY;
                         this.draw();
@@ -503,109 +605,62 @@
 
                 function init() {
                     particlesArray = [];
-                    let numberOfParticles = (canvas.height * canvas.width) / 9000;
-                    for (let i = 0; i < numberOfParticles * 0.8; i++) {
-                        let size = (Math.random() * 2) + 1;
+                    let numParticles = (canvas.height * canvas.width) / 15000;
+                    for (let i = 0; i < numParticles; i++) {
+                        let size = (Math.random() * 1.5) + 1;
                         let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
                         let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
-                        let directionX = (Math.random() * 2) - 1;
-                        let directionY = (Math.random() * 2) - 1;
-                        particlesArray.push(new Particle(x, y, directionX, directionY, size, 'rgba(0, 246, 255, 0.8)'));
+                        let dirX = (Math.random() * 0.4) - 0.2;
+                        let dirY = (Math.random() * 0.4) - 0.2;
+                        particlesArray.push(new Particle(x, y, dirX, dirY, size));
                     }
                 }
 
                 function animate() {
                     requestAnimationFrame(animate);
                     ctx.clearRect(0, 0, innerWidth, innerHeight);
-                    for (let i = 0; i < particlesArray.length; i++) {
-                        particlesArray[i].update();
-                    }
-                    connect();
-                }
-
-                function connect() {
-                    let opacityValue = 1;
-                    for (let a = 0; a < particlesArray.length; a++) {
-                        for (let b = a; b < particlesArray.length; b++) {
-                            let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x)) + ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
-                            if (distance < (canvas.width / 7) * (canvas.height / 7)) {
-                                opacityValue = 1 - (distance / 20000);
-                                ctx.strokeStyle = 'rgba(0, 246, 255,' + opacityValue + ')';
-                                ctx.lineWidth = 1;
-                                ctx.beginPath();
-                                ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
-                                ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
-                                ctx.stroke();
-                            }
-                        }
-                    }
+                    particlesArray.forEach(p => p.update());
                 }
 
                 window.addEventListener('resize', () => {
                     canvas.width = innerWidth;
                     canvas.height = innerHeight;
-                    mouse.radius = ((canvas.height / 80) * (canvas.height / 80));
                     init();
-                });
-
-                window.addEventListener('mouseout', () => {
-                    mouse.x = undefined;
-                    mouse.y = undefined;
                 });
 
                 init();
                 animate();
             }
+            
+            // --- New Character Reveal Animation Setup ---
+            function setupRevealAnimation(element, text) {
+                element.innerHTML = text.split('').map((char, index) => {
+                    if(char === ' ') return ' ';
+                    return `<span style="--char-index: ${index};">${char}</span>`;
+                }).join('');
+            }
+            
+            const mainHeading = document.getElementById('main-heading');
+            const subHeading = document.getElementById('sub-heading');
 
-            // --- Typewriter Effect ---
-            function setupTypewriter(element, text, delay = 100, callback) {
-                let i = 0;
-                element.innerHTML = "";
-                element.classList.add('typewriter-text');
-
-                function type() {
-                    if (i < text.length) {
-                        element.innerHTML += text.charAt(i);
-                        i++;
-                        setTimeout(type, delay);
-                    } else {
-                        element.classList.remove('typewriter-text');
-                        if (callback) callback();
-                    }
-                }
-                type();
+            if(mainHeading && subHeading){
+                 setTimeout(() => {
+                    setupRevealAnimation(mainHeading, "Vijayakumar.");
+                    setupRevealAnimation(subHeading, "I build intelligent systems.");
+                 }, 600);
             }
 
-            const h1Element = document.getElementById('typewriter-h1');
-            const h2Element = document.getElementById('typewriter-h2');
-            if (h1Element && h2Element) {
-                const h1Text = "Vijayakumar.";
-                const h2Text = "AI Systems Architect.";
-                setTimeout(() => {
-                    setupTypewriter(h1Element, h1Text, 100, () => {
-                        setupTypewriter(h2Element, h2Text, 75);
-                    });
-                }, 600);
-            }
 
-            // --- Splash Screen Logic ---
             const splashScreen = document.getElementById('splash-screen');
             if (splashScreen) {
                 setTimeout(() => {
                     splashScreen.style.opacity = '0';
-                    setTimeout(() => {
-                        splashScreen.style.display = 'none';
-                    }, 500);
-                }, 2500);
+                    splashScreen.style.visibility = 'hidden';
+                }, 2200);
             }
 
-            // --- Initialize AOS ---
-            AOS.init({
-                duration: 800,
-                once: false
-            });
+            AOS.init({ duration: 800, once: true, offset: 100 });
 
-            // --- Mobile Menu Logic ---
             const mobileMenuButton = document.getElementById('mobile-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
             if (mobileMenuButton && mobileMenu) {
@@ -613,8 +668,7 @@
                     mobileMenu.classList.toggle('hidden');
                     mobileMenu.classList.toggle('flex');
                 });
-                const menuLinks = mobileMenu.querySelectorAll('a');
-                menuLinks.forEach(link => {
+                mobileMenu.querySelectorAll('a').forEach(link => {
                     link.addEventListener('click', () => {
                         mobileMenu.classList.add('hidden');
                         mobileMenu.classList.remove('flex');
@@ -622,7 +676,6 @@
                 });
             }
 
-            // --- Contact Form Logic ---
             const form = document.getElementById('contact-form');
             const formResult = document.getElementById('form-result');
             if (form) {
@@ -648,17 +701,15 @@
                                 formResult.innerHTML = "Transmission successful. I will respond shortly.";
                                 formResult.style.color = 'var(--cyan)';
                             } else {
-                                console.log(response);
                                 formResult.innerHTML = `Error: ${jsonResponse.message}`;
                                 formResult.style.color = '#ff6b6b';
                             }
                         })
                         .catch(error => {
-                            console.log(error);
                             formResult.innerHTML = "Error: Transmission failed. Please try again.";
                             formResult.style.color = '#ff6b6b';
                         })
-                        .then(function() {
+                        .then(() => {
                             form.reset();
                             setTimeout(() => {
                                 formResult.innerHTML = '';
@@ -670,5 +721,4 @@
     </script>
 
 </body>
-
 </html>
